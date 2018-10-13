@@ -64,13 +64,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .pagination {
-    max-width: 41%;
+   
     margin-top: 20px;
     margin-bottom: 5px;
     background-color: white;
     padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0px 0px 1px 1px #999; 
+    /* box-shadow: 0px 0px 1px 1px #999;  */
     /* border: 1px solid #888888;  */
   }
 
@@ -85,6 +85,7 @@ export default {
     padding: 0 2px;
     width: 55px;
     height: 29px;
+      box-shadow: 0px 0px 1px 0 #999; 
   }
 
   .pagebtn {

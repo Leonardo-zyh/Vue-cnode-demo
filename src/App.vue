@@ -48,4 +48,5 @@ ul{list-style: none;}
   /* right:13vw; */
   left:71vw
 }
+
 </style>

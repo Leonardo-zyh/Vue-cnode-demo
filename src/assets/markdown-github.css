@@ -722,7 +722,7 @@
 */
 /* .markdown-here-wrapper[data-md-url*="mail.yahoo."] ul { color: red; } */
 
-pre, code {
+ pre, code {
   font-size: 0.85em;
   font-family: Consolas, Inconsolata, Courier, monospace;
 }
@@ -781,36 +781,36 @@ ul, ol {
   padding-left: 2em;
 }
 
-li {
+.article li {
   margin: 0.5em 0;
   font-size: 16px;
 }
 
 /* Space paragraphs in a list the same as the list itself. */
-li p {
+.article li p {
   /* Needs !important to override rule above. */
   margin: 0.5em 0 !important;
 }
 
 /* Smaller spacing for sub-lists */
-ul ul, ul ol, ol ul, ol ol {
+.article ul ul, ul ol, ol ul, ol ol {
   margin: 0;
   padding-left: 1em;
 }
 
 /* Use letters for unordered-lists. (Like Github.) */
-ul ul, ul, ul {
+.article ul ul, ul, ul {
   list-style-type: square;
   font-size: 16px;
 }
 
 /* Use letters for sub-ordered-lists. (Like Github.) */
-ol ol, ul ol {
+.article ol ol, ul ol {
   list-style-type: lower-roman;
 }
 
 /* Use Roman numerals for sub-sub-ordered lists. (Like Github.) */
-ul ul ol, ul ol ol, ol ul ol, ol ol ol {
+.article ul ul ol, ul ol ol, ol ul ol, ol ol ol {
   list-style-type: lower-alpha;
 }
 

@@ -22,7 +22,7 @@
         </div>
          <div id="reply" >
         <div >
-            <div class="topbar">回复</div>
+            <div class="topbar">{{post.reply_count}} 回复</div>
             <div v-for="(reply,index) in post.replies" :key="index" class="reply">
                 <div class="replyUp">
                 <router-link :to="{
@@ -187,6 +187,11 @@ export default {
     color: #666;
     font-size: 12px;
     font-weight: 700;
+}
+#reply .topbar{
+    padding: 10px;
+    background-color: #f6f6f6;
+    border-radius: 3px 3px 0 0;
 }
 
 #reply img {

@@ -48,6 +48,8 @@ img {
 ul {
   float: right;
   margin: 5px 5px;
+  display: flex;
+  align-items: center
   
 }
 li {

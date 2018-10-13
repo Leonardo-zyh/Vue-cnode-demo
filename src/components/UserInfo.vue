@@ -7,9 +7,9 @@
     <div class="userInfomation" v-else>
         <section>
             <img :src="userInfo.avatar_url" alt="">
-            <span>{{userInfo.loginname}}</span>
+            <span class="loginname">{{userInfo.loginname}}</span>
             <p>
-                {{userInfo.scroe}}积分
+                积分：{{userInfo.score}}
             </p>
             <p>
                 注册时间：{{userInfo.create_at | formatDate}}
@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  name: 'userInfo',
+  name: "userInfo",
   data() {
     return {
       isLoading: false,
@@ -86,4 +86,54 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.userInfomation {
+  background: white;
+  width: 75%;
+  margin: 10px auto;
+}
+.userInfomation section {
+  padding: 12px;
+  position: relative;
+}
+.userInfomation img {
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+
+}
+.userInfomation li {
+  list-style: none;
+}
+.userInfomation .replies,
+.userInfomation .topics {
+  font-size: 0.72rem;
+  border-top: 10px #dddddd solid;
+}
+.userInfomation > div > p {
+  padding: 12px 0 12px 12px;
+  background-color: rgba(212, 205, 205, 0.17);
+  font-size: 0.75rem;
+  margin: 0;
+}
+.userInfomation > div > ul > li {
+  padding: 4px 0 4px 12px;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 30px;
+  vertical-align: middle;
+}
+.userInfomation > div > ul > li > a {
+  color: #094e99;
+  text-decoration: none;
+}
+.loginname {
+  font-size: 14px;
+  line-height: 2em;
+  color: #778087;
+  padding-left: 7px;
+  position: absolute;
+  top: 10px;
+}
 </style>
