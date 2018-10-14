@@ -2,6 +2,7 @@
   <div class="autherinfo">
       <div class="authersummay">
           <div class="topbar">作者</div>
+            <div class="topbar-inner">
                 <router-link :to="{
                     name:'user_info',
                     params:{
@@ -11,16 +12,17 @@
                     <img :src="userinfo.avatar_url" alt="">                
                 <div class="loginname">{{userinfo.loginname}}</div>
                 </router-link>
-                <div>积分: {{userinfo.score}}</div>
-                <div>
-                   GitHub： <a class="github" href="https://github.com/alsotang" target="_blank">{{userinfo.githubUsername}}</a>
+                <div class="score">积分: {{userinfo.score}}</div>
+                <div class="githubUsername">
+                   GitHub： <a class="github" :href="href" target="_blank">{{userinfo.githubUsername}}</a>
                 </div>
+              </div>
                
       </div>
       <div class="recent_topics">
           <div class="topbar">作者其他话题</div>
           <ul>
-              <li v-for="(list,index) in topclimitby5" :key="index">
+              <li v-for="(list,index) in topclimitby5" :key="index" :title="list.title">
                 <router-link :to="{
                     name:'post_content',
                     params:{                        
@@ -36,7 +38,7 @@
       <div class="recent_replies">
           <div class="topbar">作者最近回复话题</div>
                     <ul>
-              <li v-for="(list,index) in replylimitby5" :key="index">
+              <li v-for="(list,index) in replylimitby5" :key="index" :title="list.title">
                 <router-link :to="{
                     name:'post_content',
                     params:{                        
@@ -57,7 +59,8 @@ export default {
   name: "SildeBar",
   data() {
     return {
-      userinfo: {}
+      userinfo: {},
+      href: ""
     };
   },
   methods: {
@@ -67,6 +70,7 @@ export default {
         .then(res => {
           console.log(res);
           this.userinfo = res.data.data;
+          this.href = "https://github.com/" + this.userinfo.githubUsername;
         })
         .catch(function(err) {
           console.error(err);
@@ -107,26 +111,27 @@ export default {
 .authersummay {
   background-color: #fff;
   border-radius: 5px;
-  padding: 10px;
+
 }
 .autherinfo {
-  width: 328px;
+  width:22vw;
   float: right;
   margin-top: 0;
 }
 li {
-  padding: 3px 0;
+  padding: 4px 0;
 }
 .recent_replies ul,
 .recent_topics ul {
   margin-top: 0px;
   margin-bottom: 0px;
   list-style: none;
-  padding-left: 14px;
+  padding: 10px;
 }
 
 ul a {
-  font-size: 12px;
+  max-width: 270px;
+  font-size: 14px;
   text-decoration: none;
   color: #778087;
 }
@@ -135,9 +140,15 @@ ul a {
   padding: 10px;
   background-color: #f6f6f6;
   height: 40px;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+.topbar-inner{
+  padding:10px
+}
+.topbar-inner .score,.githubUsername{
+  padding:5px 0;
 }
 
 .authersummay img {
@@ -147,7 +158,6 @@ ul a {
 }
 
 .authersummay .loginname {
-
   width: 100px;
   float: right;
   margin-top: 22px;
@@ -155,7 +165,7 @@ ul a {
   font-size: 14px;
   color: #778087;
   font-size: 16px;
-  padding-left: 10px
+  padding-left: 10px;
 }
 
 .loginname a {

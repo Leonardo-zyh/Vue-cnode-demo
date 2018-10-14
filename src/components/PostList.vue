@@ -1,7 +1,7 @@
 <template>
   <div class="postList"> 
       <div class="loading" v-if="isLoading">
-          <img src="../assets/loading.gif" alt="">
+          <img  src="../assets/loading.gif" alt="">
       </div>
       <!-- 主题帖子列表 -->
       <div v-else>
@@ -66,6 +66,7 @@ export default {
       posts: [], //页面列表数组
       postpage: 1,
       topbar:['全部','精华','分享','问答','招聘'],
+      tab:'',
       click:'',
     };
   },
@@ -83,7 +84,7 @@ export default {
           }
         })
         .then(res => {
-          // console.log(res);
+          console.log(res);
           this.isLoading = false; //加载成功，去除动画
           this.posts = res.data.data;
         })
@@ -97,6 +98,20 @@ export default {
     },
     topbarClick(e){
        this.click = e
+       this.tab = e
+       
+       if(e='全部'){
+         this.tab = 'all'
+       }else if(e= '精华'){
+         this.tab = 'ture'
+       }else if(e='分享'){
+         this.tab = 'share'
+       }else if(e='问答'){
+         this.tab = 'ask'
+       }else if(e='招聘'){
+         this.tab = 'recruit'
+       }
+       console.log(this.tab);                     
     }
   },
 
@@ -109,6 +124,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .postList {
   margin: 8px 50px;
   font-size: 16px;
@@ -249,5 +265,11 @@ a:hover {
 .loading {
   text-align: center;
   padding-top: 300px;
+  height: 100vw;
+}
+.loading img{
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%
 }
 </style>

@@ -100,7 +100,7 @@ export default {
 
 .main {
   width: 90%;
-  max-width: 1400px;
+  max-width: 90vw;
   min-width: 960px;
   margin: 0 auto;
   margin-top: 15px;
@@ -109,7 +109,7 @@ export default {
   padding-left: 30px
 }
 .article {
-  margin-right: 350px;
+  margin-right: 23vw;
 }
 .put_top {
   background: #80bd01;
@@ -169,7 +169,7 @@ export default {
   flex-grow: 1;
   color: #08c;
   text-decoration: none;
-  margin: 5px;
+  margin: 0px 5px;
 }
 #reply .thumbs {
   margin-right: 20px;
@@ -180,12 +180,11 @@ export default {
   align-items: center;
 }
 #reply .markdown-text{
-    padding-left: 50px;
+    padding-left: 30px;
 }
 #reply .author{
     padding-left: 10px;
     color: #666;
-    font-size: 12px;
     font-weight: 700;
 }
 #reply .topbar{
@@ -199,6 +198,7 @@ export default {
   height: 30px;
   position: relative;
   bottom: -9px;
+  border-radius: 10%;
 }
 
 #reply a,
@@ -224,5 +224,16 @@ export default {
 
 .markdown-text img {
   width: 92% !important;
+  
+}
+.loading {
+  text-align: center;
+  padding-top: 300px;
+  height: 100vw;
+}
+.loading img{
+  width: 10vw;
+  height: 10vw;
+  border-radius: 50%
 }
 </style>

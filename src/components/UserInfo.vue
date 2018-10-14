@@ -11,12 +11,15 @@
             <p>
                 积分：{{userInfo.score}}
             </p>
-            <p>
-                注册时间：{{userInfo.create_at | formatDate}}
+                <p>
+                   GitHub： <a class="github" :href="href" target="_blank">{{userInfo.githubUsername}}</a>
+                </p>            
+            <p class="creatTime">
+                注册时间： {{userInfo.create_at | formatDate}}
             </p>
         </section>
         <div class="replies">
-            <p>回复的主题</p>
+            <p>最近参与的话题</p>
             <ul>
                 <li v-for="(item,index) in userInfo.recent_replies" :key="index">
                 <router-link :to="{
@@ -31,7 +34,7 @@
             </ul>
         </div>
         <div class="topics">
-            <p>创建的主题</p>
+            <p>最近创建的话题</p>
             <ul>
                 <li v-for="(item,index) in userInfo.recent_topics" :key="index">
                 <router-link :to="{
@@ -55,7 +58,8 @@ export default {
   data() {
     return {
       isLoading: false,
-      userInfo: {}
+      userInfo: {},
+      href: ""
     };
   },
   methods: {
@@ -71,6 +75,7 @@ export default {
           console.log(res);
           this.isLoading = false; //加载成功，去除动画
           this.userInfo = res.data.data;
+          this.href = "https://github.com/" + this.userInfo.githubUsername;
         })
         .catch(function(err) {
           console.error(err);
@@ -95,11 +100,17 @@ export default {
   padding: 12px;
   position: relative;
 }
+.userInfomation > section > p{
+  margin: 10px 0;
+}
+.userInfomation > section .creatTime{
+    font-size: 14px;
+  color: #778087;
+}
 .userInfomation img {
   width: 40px;
   height: 40px;
   border-radius: 3px;
-
 }
 .userInfomation li {
   list-style: none;
@@ -115,6 +126,7 @@ export default {
   font-size: 0.75rem;
   margin: 0;
 }
+
 .userInfomation > div > ul > li {
   padding: 4px 0 4px 12px;
   white-space: nowrap;
@@ -128,11 +140,14 @@ export default {
   color: #094e99;
   text-decoration: none;
 }
+.github {
+  color: cornflowerblue;
+}
 .loginname {
   font-size: 14px;
   line-height: 2em;
   color: #778087;
-  padding-left: 7px;
+  padding-left: 10px;
   position: absolute;
   top: 10px;
 }

@@ -42,11 +42,11 @@ ul{list-style: none;}
   position: relative;
 }
 .sildeBar{
-  width:290px;
+  
   position: absolute;
   top:65px;
   /* right:13vw; */
-  left:71vw
+  right: 5vw
 }
 
 </style>
