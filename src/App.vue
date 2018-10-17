@@ -42,7 +42,6 @@ ul{list-style: none;}
   position: relative;
 }
 .sildeBar{
-  
   position: absolute;
   top:65px;
   /* right:13vw; */

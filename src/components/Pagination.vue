@@ -1,14 +1,14 @@
 <template>
   <div class="pagination">
-    <button @click="changeBtn">首页</button>
-    <button @click="changeBtn">上一页</button>
-    <button v-if="jduge">...</button>
+    <button @click="changeBtn" class="btn">首页</button>
+    <button @click="changeBtn" class="btn">上一页</button>
+    <button v-if="jduge" class="btn3">...</button>
     <button v-for="(btn,index) in pagebtns" :key="index"
             @click="changeBtn(btn)"
             :class="[{currentPage:btn == currentPage},'pagebtn'] ">
         {{btn}}
     </button>
-    <button @click="changeBtn">下一页</button>
+    <button @click="changeBtn" class="btn">下一页</button>
   </div>
 </template>
 
@@ -64,12 +64,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .pagination {
-   
+
     margin-top: 20px;
     margin-bottom: 5px;
     background-color: white;
     padding: 10px 20px;
     border-radius: 5px;
+    
     /* box-shadow: 0px 0px 1px 1px #999;  */
     /* border: 1px solid #888888;  */
   }
@@ -82,10 +83,20 @@ export default {
     outline: none;
     height: 21px;
     cursor: pointer;
-    padding: 0 2px;
-    width: 55px;
+    padding: 0 5px;
+    margin: 0 2px;    
     height: 29px;
-      box-shadow: 0px 0px 1px 0 #999; 
+    box-shadow: 0px 0px 1px 0 #999;
+    vertical-align: middle; 
+  }
+  button.btn3{
+      width: 40px;
+      margin-left: 4px;      
+  }
+  .btn:hover{
+    color: white;
+    background-color: #1f1b1b;
+
   }
 
   .pagebtn {

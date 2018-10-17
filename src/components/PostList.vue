@@ -1,20 +1,27 @@
 <template>
   <div class="postList"> 
-      <div class="loading" v-if="isLoading">
-          <img  src="../assets/loading.gif" alt="">
-      </div>
+     
+          <div class="loader" v-if="isLoading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+    
       <!-- 主题帖子列表 -->
-      <div v-else>
+      <div v-else class="postList-inner">
           <ul>
               <li>
-              <div class="topbar">
-              <span v-for="(item,index) in topbar" :key="index"
-               @click="topbarClick(item)" 
-               :class="[{click:item == click},] "
-               >{{item}}</span>
+              <div class="topbar"  v-if="isTopbarLoading">
+                <span @click="topbarClick('',1)" :class="{click:isShow === 1}">全部</span>
+                <span @click="topbarClick('good',2)" :class="{click:isShow === 2}">精华</span>
+                <span @click="topbarClick('share',3)" :class="{click:isShow === 3}">分享</span>
+                <span @click="topbarClick('ask',4)" :class="{click:isShow === 4}">问答</span>
+                <span @click="topbarClick('job',5)" :class="{click:isShow === 5}">招聘</span>
               </div>
               </li>
-              <li v-for="(post,index) in posts" :key="index">
+              <li v-for="(post,index) in posts" :key="index" >
                 <!-- 头像 -->
                 <router-link :to="{
                     name:'user_info',
@@ -40,7 +47,7 @@
                     id:post.id,
                     name:post.author.loginname
                   }}">
-                <span class="title">
+                <span class="title" :title=post.title>
                   {{post.title}}
                 </span>
                 
@@ -58,16 +65,18 @@
 
 <script>
 import pagination from "./Pagination";
+
 export default {
   name: "PostList",
   data() {
     return {
       isLoading: false,
+      isTopbarLoading: false,
       posts: [], //页面列表数组
       postpage: 1,
-      topbar:['全部','精华','分享','问答','招聘'],
-      tab:'',
-      click:'',
+      tab: "",
+      pageNumber: 1,
+      isShow: 1
     };
   },
   components: {
@@ -80,12 +89,14 @@ export default {
           params: {
             //get请求需要些params参数
             page: this.postpage,
-            limit: 20
+            limit: 20,
+            tab: this.tab
           }
         })
         .then(res => {
           console.log(res);
           this.isLoading = false; //加载成功，去除动画
+          this.isTopbarLoading = true;
           this.posts = res.data.data;
         })
         .catch(function(err) {
@@ -96,37 +107,27 @@ export default {
       this.postpage = value;
       this.getData();
     },
-    topbarClick(e){
-       this.click = e
-       this.tab = e
-       
-       if(e='全部'){
-         this.tab = 'all'
-       }else if(e= '精华'){
-         this.tab = 'ture'
-       }else if(e='分享'){
-         this.tab = 'share'
-       }else if(e='问答'){
-         this.tab = 'ask'
-       }else if(e='招聘'){
-         this.tab = 'recruit'
-       }
-       console.log(this.tab);                     
+    topbarClick(value, num) {
+      this.tab = value;
+      this.isShow = num;
+      this.getData();
     }
   },
-
   beforeMount: function() {
     this.isLoading = true; //加载成功之前显示加载动画
     this.getData(); //页面加载前获取数据
+  },
+  watch: {
+    $route(to, from) {
+      this.getData();
+    }
   }
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .postList {
-  margin: 8px 50px;
+  margin: 8px auto;
   font-size: 16px;
 }
 .posts {
@@ -139,13 +140,13 @@ export default {
   border-radius: 3px;
   vertical-align: middle;
 }
-
+.postList .postList-inner {
+  margin: 0 auto;
+}
 ul {
   list-style: none;
-  width: 100%;
-  max-width: 1344px;
-  margin: 0 auto;
-  box-shadow: 0 0 1px 0 #999;
+  box-shadow: 0 0 1px 0 #999; 
+  margin: 0 15vw;
 }
 
 ul li:not(:first-child) {
@@ -169,6 +170,15 @@ li:last-child:hover {
 
 li span {
   line-height: 30px;
+}
+.title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  max-width: 75%;
+  vertical-align: middle;
+  font-size: 16px;
 }
 
 .allcount {
@@ -237,16 +247,16 @@ li span {
   margin: 0;
 }
 
-.topbar>span {  
+.topbar > span {
   color: #80bd01;
   padding: 3px 4px;
   border-radius: 3px;
   margin: 0 10px;
   cursor: pointer;
 }
-.topbar>span.click{
+.topbar > span.click {
   background-color: #80bd01;
-   color: #fff;
+  color: #fff;
 }
 
 .topbar span:hover {
@@ -262,14 +272,89 @@ a:hover {
   text-decoration: underline;
 }
 
-.loading {
-  text-align: center;
-  padding-top: 300px;
-  height: 100vw;
+
+
+.loader {
+  position: fixed;
+  top: 100px;
+  left: 45%;
+  transform: translate3d(-50%, -50%, 0);
 }
-.loading img{
-  width: 10vw;
-  height: 10vw;
-  border-radius: 50%
+.dot {
+  width: 24px;
+  height: 24px;
+  background: #3ac;
+  border-radius: 100%;
+  display: inline-block;
+  animation: slide 1s infinite;
 }
+.dot:nth-child(1) {
+  animation-delay: 0.1s;
+  background: #32aacc;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background: #64aacc;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+  background: #96aacc;
+}
+.dot:nth-child(4) {
+  animation-delay: 0.4s;
+  background: #c8aacc;
+}
+.dot:nth-child(5) {
+  animation-delay: 0.5s;
+  background: #faaacc;
+}
+@-moz-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 </style>

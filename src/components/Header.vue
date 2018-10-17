@@ -34,9 +34,7 @@ export default {
 }
 .header-inner {
   height: 100%;
-  width: 90%;
-  min-width: 960px;
-  max-width: 1400px;
+  width: 75%;
   margin: 0 auto;
   position: relative;
 }

@@ -2,9 +2,14 @@
 
   <div class="article">
       <!-- 懒加载 -->
-    <div class="loading" v-if="isLoading">
-          <img src="../assets/loading.gif" alt="">
-      </div>
+          <div class="loader" v-if="isLoading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+      
     <div v-else class="article-inner">
         <div class="topic_header">
             
@@ -33,9 +38,14 @@
                 }">
                     <img :src="reply.author.avatar_url" alt="">
                 </router-link>
-               
+                <router-link :to="{
+                    name:'user_info',
+                    params:{
+                        name:reply.author.loginname
+                    }
+                }">
                     <span class="author">{{reply.author.loginname}}</span>
-                         
+                </router-link>       
                 <span class="floor">
                     {{index+1}}楼 • {{reply.create_at | formatDate}}
                 </span>
@@ -58,6 +68,7 @@
 </template>
 
 <script>
+import loader from "./loader"
 export default {
   name: "Article",
   data() {
@@ -98,18 +109,16 @@ export default {
 <style >
 @import url("../assets/markdown-github");
 
-.main {
-  width: 90%;
-  max-width: 90vw;
-  min-width: 960px;
-  margin: 0 auto;
+
+.article{
+  margin: 0 13vw;
   margin-top: 15px;
   min-height: 400px;
   padding-bottom: 20px;
   padding-left: 30px
 }
-.article {
-  margin-right: 23vw;
+.article-inner {
+  margin-right: 13vw;
 }
 .put_top {
   background: #80bd01;
@@ -226,14 +235,86 @@ export default {
   width: 92% !important;
   
 }
-.loading {
-  text-align: center;
-  padding-top: 300px;
-  height: 100vw;
+.loader {
+  position: fixed;
+  top: 100px;
+  left: 45%;
+  transform: translate3d(-50%, -50%, 0);
 }
-.loading img{
-  width: 10vw;
-  height: 10vw;
-  border-radius: 50%
+.dot {
+  width: 24px;
+  height: 24px;
+  background: #3ac;
+  border-radius: 100%;
+  display: inline-block;
+  animation: slide 1s infinite;
+}
+.dot:nth-child(1) {
+  animation-delay: 0.1s;
+  background: #32aacc;
+}
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+  background: #64aacc;
+}
+.dot:nth-child(3) {
+  animation-delay: 0.3s;
+  background: #96aacc;
+}
+.dot:nth-child(4) {
+  animation-delay: 0.4s;
+  background: #c8aacc;
+}
+.dot:nth-child(5) {
+  animation-delay: 0.5s;
+  background: #faaacc;
+}
+@-moz-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
