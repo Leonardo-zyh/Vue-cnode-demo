@@ -51,7 +51,9 @@ Vue.filter('tabFormatter',function(post){
     return '问答'
   }else if (post.tab == 'share'){
     return '分享'
-  }else{
+  }else if(post.tab == 'job') {
     return '招聘'
+  }else{
+    return '测试'
   }
 })

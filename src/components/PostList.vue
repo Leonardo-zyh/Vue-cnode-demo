@@ -19,6 +19,7 @@
                 <span @click="topbarClick('share',3)" :class="{click:isShow === 3}">分享</span>
                 <span @click="topbarClick('ask',4)" :class="{click:isShow === 4}">问答</span>
                 <span @click="topbarClick('job',5)" :class="{click:isShow === 5}">招聘</span>
+                <span @click="topbarClick('dev',6)" :class="{click:isShow === 6}">测试</span>
               </div>
               </li>
               <li v-for="(post,index) in posts" :key="index" >
@@ -125,7 +126,7 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang='scss' scoped>
 .postList {
   margin: 8px auto;
   font-size: 16px;
