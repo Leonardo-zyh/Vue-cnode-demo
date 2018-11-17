@@ -113,7 +113,7 @@ export default {
 .article{
   margin: 0 13vw;
   margin-top: 15px;
-  min-height: 400px;
+  min-height: 120vh;
   padding-bottom: 20px;
   padding-left: 30px
 }

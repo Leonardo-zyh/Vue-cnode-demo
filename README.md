@@ -29,8 +29,6 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-
-
 #<li v-for="(post,index) in posts" :key="index">
 这里的[Vue warn]是指不要用对象或是数组作为key，用string或value作为key。
 这里很明显post是对象，:key相当于是索引的作用，提高循环性能，如果循环量较小，不写也可以的。

@@ -99,6 +99,11 @@ export default {
   beforeMount: function() {
     this.isLoading = true; //加载成功之前显示加载动画
     this.getData(); //页面加载前获取数据
+  },
+   watch: {
+    $route(to, from) {
+      this.getData();
+    }
   }
 };
 </script>

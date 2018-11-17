@@ -126,7 +126,7 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang='scss' scoped>
+<style  scoped>
 .postList {
   margin: 8px auto;
   font-size: 16px;
